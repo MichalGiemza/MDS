@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SimulatedAnnealing
+namespace MDS_
 {
-    class Program
+    public interface IMinimalizationMethod
     {
-        static void Main(string[] args)
-        {
-        }
+        ISolution NextPos();
+        ISolution InitPos();
     }
 }

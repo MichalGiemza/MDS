@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("SimulatedAnnealing")]
+[assembly: AssemblyTitle("MDS")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("SimulatedAnnealing")]
+[assembly: AssemblyProduct("MDS")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("da870b99-c506-4df0-b2b5-a5b0eaf38d39")]
+[assembly: Guid("b669debb-bdc2-4c62-b8fa-ccf2437f0a59")]
 
 // Version information for an assembly consists of the following four values:
 //

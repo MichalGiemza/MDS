@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DA870B99-C506-4DF0-B2B5-A5B0EAF38D39}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>SimulatedAnnealing</RootNamespace>
-    <AssemblyName>SimulatedAnnealing</AssemblyName>
+    <ProjectGuid>{B669DEBB-BDC2-4C62-B8FA-CCF2437F0A59}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>MDS_</RootNamespace>
+    <AssemblyName>MDS</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -42,8 +45,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="GradientDescent.cs" />
+    <Compile Include="Hypercube.cs" />
+    <Compile Include="IMinimalizationMethod.cs" />
+    <Compile Include="Polyhedron.cs" />
+    <Compile Include="ISolution.cs" />
+    <Compile Include="MDS.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Simplex.cs" />
+    <Compile Include="SimulatedAnnealing.cs" />
+    <Compile Include="Solution.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
