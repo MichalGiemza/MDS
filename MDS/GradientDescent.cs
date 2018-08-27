@@ -8,8 +8,8 @@ namespace MDS_
 {
     public class GradientDescent : IMinimalizationMethod
     {
-        readonly double min = -0.1;
-        readonly double max = 0.1;
+        readonly double min = -0.5;
+        readonly double max = 0.5;
 
         readonly double[,] d0;
         readonly Solution.Function fun;

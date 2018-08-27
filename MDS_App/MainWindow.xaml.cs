@@ -30,13 +30,15 @@ namespace MDS_App
         ISolution s;
         double zoom = 250.0;
         bool simulationInProgress = false;
+        bool drawPts = false;
 
-        Polyhedron polyhedron = Polyhedron.Simplex;
+        Polytope polytope = Polytope.Simplex;
         double alpha = 0.2;
         int interval = 16;
         static double[,] d0;
         int dimX = 3;
         const int dimY = 2;
+        double epsilon = 0.000001;
 
         public MainWindow()
         {
@@ -49,10 +51,11 @@ namespace MDS_App
             zoomSlider.ValueChanged += ZoomChanged;
             dimensionControl.ValueChanged += DimensionValueChanged;
             this.SizeChanged += MainWindowSizeChanged;
-            polyhedronTypeBox.SelectionChanged += PolyhedronTypeChanged;
+            polytopeTypeBox.SelectionChanged += PolytopeTypeChanged;
             stepSizeSlider.ValueChanged += StepSizeChanged;
             intervalSlider.ValueChanged += IntervalChanged;
             drawPointsControl.Click += TogglePoints;
+            epsilonControl.ValueChanged += EpsilonChanged;
 
             ToggleControlsClear(true);
 
@@ -62,11 +65,18 @@ namespace MDS_App
             timer.Interval = new TimeSpan(0, 0, 0, 0, interval);
         }
 
+        private void EpsilonChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            if (epsilonControl.Value.HasValue)
+                epsilon = epsilonControl.Value.Value;
+        }
+
         private void TogglePoints(object sender, RoutedEventArgs e)
         {
             if (v != null)
             {
-                v.DrawPoints = drawPointsControl.IsChecked.Value;
+                drawPts = drawPointsControl.IsChecked.Value;
+                v.DrawPoints = drawPts;
                 DrawSolution(s, zoom);
             } 
         }
@@ -93,19 +103,19 @@ namespace MDS_App
             stepSizeDisplay.Content = alpha.ToString();
         }
 
-        private void PolyhedronTypeChanged(object sender, SelectionChangedEventArgs e)
+        private void PolytopeTypeChanged(object sender, SelectionChangedEventArgs e)
         {
-            polyhedron = (Polyhedron)polyhedronTypeBox.SelectedIndex;
+            polytope = (Polytope)polytopeTypeBox.SelectedIndex;
 
-            switch (polyhedron)
+            switch (polytope)
             {
-                case Polyhedron.Simplex:
+                case Polytope.Simplex:
                     dimensionControl.Maximum = maxSimplexDim;
 
                     dimX = dimX > maxSimplexDim ? maxSimplexDim : dimX;
                     dimensionControl.Value = dimX;
                     break;
-                case Polyhedron.Hypercube:
+                case Polytope.Hypercube:
                     dimensionControl.Maximum = maxHypercubeDim;
 
                     dimX = dimX > maxHypercubeDim ? maxHypercubeDim : dimX;
@@ -195,7 +205,8 @@ namespace MDS_App
 
             iterationDisplay.Text = mds.Iteration.ToString();
 
-            if (oldStress == s.GetValue()) // Stop if changes stopped
+            // Stop if changes are smaller than epsilon
+            if (Math.Abs(oldStress - s.GetValue()) < epsilon)
                 ToggleSimulation(null, null);
         }
 
@@ -246,28 +257,29 @@ namespace MDS_App
         {
             if (running)
             {
-                polyhedronTypeBox.IsEnabled = false;
+                polytopeTypeBox.IsEnabled = false;
                 dimensionControl.IsEnabled = false;
             }
             else
             {
-                polyhedronTypeBox.IsEnabled = true;
+                polytopeTypeBox.IsEnabled = true;
                 dimensionControl.IsEnabled = true;
             }
         }
 
         private void InitSimulation()
         {
-            v = new Visualization(dimX, canvas, polyhedron);
+            v = new Visualization(dimX, canvas, polytope);
+            v.DrawPoints = drawPts;
 
-            switch (polyhedron)
+            switch (polytope)
             {
-                case Polyhedron.Simplex:
+                case Polytope.Simplex:
                     d0 = Simplex.GenerateDistanceMatrix(dimX);
                     minimalization = new GradientDescent(d0, alpha, Simplex.GetVerticesCount(dimX));
                     //minimalization = new SimulatedAnnealing(1000, Simplex.GetVerticesCount(dimX), d0, dimY);
                     break;
-                case Polyhedron.Hypercube:
+                case Polytope.Hypercube:
                     d0 = Hypercube.GenerateDistanceMatrix(dimX);
                     minimalization = new GradientDescent(d0, alpha, Hypercube.GetVerticesCount(dimX));
                     //minimalization = new SimulatedAnnealing(1000, Hypercube.GetVerticesCount(dimX), d0, dimY);
@@ -288,12 +300,12 @@ namespace MDS_App
         private void DrawSolution(ISolution s, double zoom)
         {
             int count = 0;
-            switch (polyhedron)
+            switch (polytope)
             {
-                case Polyhedron.Simplex:
+                case Polytope.Simplex:
                     count = Simplex.GetVerticesCount(dimX);
                     break;
-                case Polyhedron.Hypercube:
+                case Polytope.Hypercube:
                     count = Hypercube.GetVerticesCount(dimX);
                     break;
                 default:

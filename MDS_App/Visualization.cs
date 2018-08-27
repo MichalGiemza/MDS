@@ -18,24 +18,24 @@ namespace MDS_App
         private int pointsCount;
         private int linesCount;
         private bool drawPoints = false;
-        Polyhedron type;
+        Polytope type;
         Canvas c;
 
         public Point[] Points { get => points; }
         public bool DrawPoints { get => drawPoints; set => drawPoints = value; }
 
-        public Visualization(int dim, Canvas canvas, Polyhedron polyhedronType)
+        public Visualization(int dim, Canvas canvas, Polytope polytopeType)
         {
             c = canvas;
-            type = polyhedronType;
+            type = polytopeType;
 
-            switch (polyhedronType)
+            switch (polytopeType)
             {
-                case Polyhedron.Simplex:
+                case Polytope.Simplex:
                     pointsCount = Simplex.GetVerticesCount(dim);
                     linesCount = Simplex.GetEdgesCount(dim);
                     break;
-                case Polyhedron.Hypercube:
+                case Polytope.Hypercube:
                     pointsCount = Hypercube.GetVerticesCount(dim);
                     linesCount = Hypercube.GetEdgesCount(dim);
                     break;
@@ -55,10 +55,10 @@ namespace MDS_App
             // Edges
             switch (type)
             {
-                case Polyhedron.Simplex:
+                case Polytope.Simplex:
                     InitSimplexEdges();
                     break;
-                case Polyhedron.Hypercube:
+                case Polytope.Hypercube:
                     InitHypercubeEdges();
                     break;
                 default:
@@ -103,10 +103,10 @@ namespace MDS_App
             // Edges
             switch (type)
             {
-                case Polyhedron.Simplex:
+                case Polytope.Simplex:
                     DrawSimplexEdges();
                     break;
-                case Polyhedron.Hypercube:
+                case Polytope.Hypercube:
                     DrawHypercubeEdges();
                     break;
                 default:

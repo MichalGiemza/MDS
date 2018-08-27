@@ -26,14 +26,14 @@
         <Slider x:Name="zoomSlider" Value="250" Grid.Column="1" HorizontalAlignment="Stretch" Margin="10,0,10,80" VerticalAlignment="Bottom" Minimum="50" Maximum="1000" />
         <CheckBox Name="drawPointsControl" Content="Draw vertices" HorizontalAlignment="Stretch" Margin="10,0,10,60" VerticalAlignment="Bottom" IsChecked="False" Grid.Column="1"/>
 
-        <GroupBox Header="Polyhedron" HorizontalAlignment="Stretch" Height="124" Margin="10,183,10,0" VerticalAlignment="Top" Grid.Column="1">
+        <GroupBox Header="Polytope" HorizontalAlignment="Stretch" Height="124" Margin="10,232,10,0" VerticalAlignment="Top" Grid.Column="1">
             <Grid HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="71*"/>
                     <ColumnDefinition Width="57*"/>
                 </Grid.ColumnDefinitions>
                 <Label Content="Type:" HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-                <ComboBox x:Name="polyhedronTypeBox" HorizontalAlignment="Stretch" Margin="0,26,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" >
+                <ComboBox x:Name="polytopeTypeBox" HorizontalAlignment="Stretch" Margin="0,26,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" >
                     <ComboBoxItem IsSelected="True" Content="Simplex"/>
                     <ComboBoxItem Content="Hypercube"/>
                 </ComboBox>
@@ -42,7 +42,7 @@
             </Grid>
         </GroupBox>
 
-        <GroupBox Header="Simulation" HorizontalAlignment="Stretch" Height="173" Margin="10,10,10,0" VerticalAlignment="Top" Grid.Column="1">
+        <GroupBox Header="Simulation" HorizontalAlignment="Stretch" Height="217" Margin="10,10,10,0" VerticalAlignment="Top" Grid.Column="1">
             <Grid HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="5*"/>
@@ -55,6 +55,8 @@
                 <Label Content="Step size:" HorizontalAlignment="Left" Margin="0,104,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.656,0.548" Grid.ColumnSpan="2" Width="79"/>
                 <Slider Name="stepSizeSlider" HorizontalAlignment="Stretch" Margin="0,130,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Minimum="0.001" Maximum="1.0" Value="0.2"/>
                 <Label Name="stepSizeDisplay" Content="0.2" HorizontalAlignment="Right" Margin="0,104,10,0" VerticalAlignment="Top" RenderTransformOrigin="0.656,0.548" Grid.Column="1" Width="39" HorizontalContentAlignment="Left"/>
+                <Label Content="Epsilon:" HorizontalAlignment="Stretch" Margin="0,148,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2"/>
+                <xctk:DoubleUpDown Name="epsilonControl" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0,174,0,0" Value="0.000001" Minimum="0.00000000000001" Maximum="1" Increment="0.000001" Grid.ColumnSpan="2"/>
             </Grid>
         </GroupBox>
     </Grid>

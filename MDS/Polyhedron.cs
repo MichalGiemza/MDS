@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MDS_
 {
-    public enum Polyhedron
+    public enum Polytope
     {
         Simplex,
         Hypercube
